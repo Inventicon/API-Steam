@@ -31,7 +31,8 @@ module.exports = function GetPlayerSummaries(config, app) {
                         "steamids": query.id
                     }
                 }).then(response => {
-                    res.send(response);
+                    console.log(response);
+                    res.send("Success");
                 }).catch(error => {
                     console.log(error);
                     res.send("Server error [Steam | Community | User]");

@@ -38,10 +38,8 @@ module.exports = function GetPlayerSummaries(config, app) {
                             "steamids": steamids
                         }
                     }).then(response => {
-                        console.log(response.data.response.players);
                         res.send(response.data.response.players);
-                    }).catch(error => {
-                        console.log(error);
+                    }).catch(() => {
                         res.send("Server error [Steam | Community | User]");
                     });
                 });
@@ -75,10 +73,8 @@ module.exports = function GetPlayerSummaries(config, app) {
                             "steamid": id64
                         }
                     }).then(response => {
-                        console.log(response.data);
-                        res.send(response.data);
-                    }).catch(error => {
-                        console.log(error);
+                        res.send(response.data.response);
+                    }).catch(() => {
                         res.send("Server error [Steam | Community | User | Games]");
                     });
                 });

@@ -25,7 +25,7 @@ module.exports = function GetPlayerSummaries(config, app) {
             } else {
                 // http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=XXXXXXXXXXXXXXXXXXXXXXX&steamids=7656119796043553
 
-                axios.get("//api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/", {
+                axios.get("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/", {
                     params: {
                         "key": config.key,
                         "steamids": query.id

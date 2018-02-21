@@ -7,8 +7,7 @@ module.exports = {
 };
 
 async function authExists(key) {
-    const result = await db.checkForKey(key);
-    return result === undefined;
+    return await db.checkForKey(key);
 }
 
 async function authCreate(owner, domain) {

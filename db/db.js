@@ -24,10 +24,11 @@ class DB {
 
     static async checkForKey(key) {
         const db = await dbPromise;
-        const [rows] = await Promise.all([
+        let [count] = await Promise.all([
             db.get("SELECT COUNT(*) FROM authorized WHERE key = (?);", key),
         ]);
-        return rows !== undefined;
+        count = count["COUNT(*)"];
+        return count !== 0;
     }
 
     static async getAuthKeys() {

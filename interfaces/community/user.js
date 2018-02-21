@@ -23,19 +23,25 @@ module.exports = function GetPlayerSummaries(config, app) {
             if (!exists) {
                 res.send("Invalid [auth] key, not found in registry!");
             } else {
-                // http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=XXXXXXXXXXXXXXXXXXXXXXX&steamids=7656119796043553
+                let ids = query.id.split(",");
+                ids = ids.map(async (id) => {
+                    return core.find.user64(config.key, id);
+                });
 
-                axios.get("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/", {
-                    params: {
-                        "key": config.key,
-                        "steamids": query.id
-                    }
-                }).then(response => {
-                    console.log(response);
-                    res.send("Success");
-                }).catch(error => {
-                    console.log(error);
-                    res.send("Server error [Steam | Community | User]");
+                Promise.all(ids).then(id64s => {
+                    let steamids = id64s.join(",");
+                    axios.get("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/", {
+                        params: {
+                            "key": config.key,
+                            "steamids": steamids
+                        }
+                    }).then(response => {
+                        console.log(response.data.response.players);
+                        res.send(response.data.response.players);
+                    }).catch(error => {
+                        console.log(error);
+                        res.send("Server error [Steam | Community | User]");
+                    });
                 });
             }
         });

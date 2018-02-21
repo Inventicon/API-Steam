@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
+    "bignumber.js": "^6.0.0",
     "bluebird": "^3.5.1",
     "chalk": "^2.3.1",
     "core": "file:./core",

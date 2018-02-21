@@ -1,3 +1,4 @@
 module.exports = {
-    auth: require("./auth")
+    auth: require("./auth"),
+    find: require("./find")
 };

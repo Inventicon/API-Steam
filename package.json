@@ -13,6 +13,8 @@
   "dependencies": {
     "chalk": "^2.3.1",
     "express": "^4.16.2",
-    "sqlite": "^2.9.1"
+    "sqlite": "^2.9.1",
+    "core": "file:./core",
+    "db": "file:./db"
   }
 }

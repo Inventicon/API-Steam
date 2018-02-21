@@ -12,9 +12,17 @@ config = {
 
 let app = express();
 
-app.get(config.address, function (req, res) {
-    res.send("Hello World");
-});
+// Load core components
+const core = require("core");
+// Start database
+const db = require("db");
+// Start interface endpoints
+const interfaces = require("./interfaces")(config, app);
 
+
+
+// Display server information
 console.log(`${chalk.blue("Steam API")} running on ":${chalk.green(config.port) + chalk.red(config.address)}"`);
+
+// Start server
 app.listen(config.port);

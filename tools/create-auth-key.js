@@ -3,7 +3,7 @@ const core = require("core");
 const db = require("db");
 const readline = require("readline");
 
-console.log(chalk.red("== Auth Key Creator =="));
+console.log(chalk.redBright("== Auth Key Creator =="));
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -11,15 +11,15 @@ const rl = readline.createInterface({
 });
 
 db.initialize().then(() => {
-    rl.question(chalk.blue("Owner: "), (owner) => {
-        rl.question(chalk.blue("Domain: "), (domain) => {
+    rl.question(chalk.blueBright("Owner: "), (owner) => {
+        rl.question(chalk.blueBright("Domain: "), (domain) => {
             core.auth.create(owner, domain).then((key) => {
-                console.log(chalk.magenta(" = Authorized! = "));
-                console.log(chalk.green("Key:"), key);
+                console.log(chalk.magentaBright(" = Authorized! = "));
+                console.log(chalk.greenBright("Key:"), key);
 
                 rl.close();
             }).catch((error) => {
-                console.log(chalk.red(" = Authorization Failed! = "));
+                console.log(chalk.redBright(" = Authorization Failed! = "));
                 console.log("Error:", error);
 
                 rl.close();

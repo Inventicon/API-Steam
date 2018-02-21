@@ -1,6 +1,9 @@
 module.exports = function StartInterfaces(config, app) {
-    console.log("Loading Interfaces", config);
+    console.log("Loading Interfaces");
 
-    // User API
-    require("./community/user")(config, app);
+    // Community APIs
+    {
+        // User API
+        require("./community/user")(config, app);
+    }
 };

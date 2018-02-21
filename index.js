@@ -14,8 +14,11 @@ let app = express();
 
 // Load core components
 const core = require("core");
+
 // Start database
 const db = require("db");
+db.initialize();
+
 // Start interface endpoints
 const interfaces = require("./interfaces")(config, app);
 

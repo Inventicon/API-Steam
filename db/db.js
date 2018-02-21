@@ -29,6 +29,13 @@ class DB {
         ]);
         return rows !== undefined;
     }
+
+    static async getAuthKeys() {
+        const db = await dbPromise;
+        return await Promise.all([
+            db.get("SELECT * FROM authorized"),
+        ]);
+    }
 }
 
 module.exports = DB;

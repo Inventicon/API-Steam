@@ -14,12 +14,12 @@ db.initialize().then(() => {
     rl.question(chalk.blue("Owner: "), (owner) => {
         rl.question(chalk.blue("Domain: "), (domain) => {
             core.auth.create(owner, domain).then((key) => {
-                console.log(chalk.magenta("= Authorized! ="));
+                console.log(chalk.magenta(" = Authorized! = "));
                 console.log(chalk.green("Key:"), key);
 
                 rl.close();
             }).catch((error) => {
-                console.log(chalk.red("= Authorization Failed! ="));
+                console.log(chalk.red(" = Authorization Failed! = "));
                 console.log("Error:", error);
 
                 rl.close();

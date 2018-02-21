@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node .",
-    "create-auth-key": "node tools/create-auth-key"
+    "authorize": "node tools/create-auth-key",
+    "list": "node tools/list-auth-keys"
   },
   "author": "Inventicon",
   "license": "MIT",

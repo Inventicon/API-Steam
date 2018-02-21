@@ -2,7 +2,8 @@ const db = require("db");
 
 module.exports = {
     exists: authExists,
-    create: authCreate
+    create: authCreate,
+    getAll: getRegisteredKeys
 };
 
 async function authExists(key) {
@@ -32,4 +33,9 @@ function generateKey(length) {
         key += s4();
     }
     return key.substr(0, length);
+}
+
+async function getRegisteredKeys() {
+    let keys = await db.getAuthKeys();
+    return keys;
 }

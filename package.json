@@ -16,9 +16,12 @@
     "bignumber.js": "^6.0.0",
     "bluebird": "^3.5.1",
     "chalk": "^2.3.1",
+    "cheerio": "^1.0.0-rc.2",
     "core": "file:./core",
     "db": "file:./db",
     "express": "^4.16.2",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
     "sqlite": "^2.9.1"
   }
 }

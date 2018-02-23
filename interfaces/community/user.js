@@ -70,6 +70,8 @@ module.exports = function GetPlayerSummaries(config, app) {
                     axios.get("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/", {
                         params: {
                             "key": config.key,
+                            "include_appinfo": query.include_appinfo || 0,
+                            "include_played_free_games": query.include_played_free_games || 0,
                             "steamid": id64
                         }
                     }).then(response => {

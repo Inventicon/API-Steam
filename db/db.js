@@ -12,6 +12,7 @@ class DB {
     static async _createTables() {
         const db = await dbPromise;
         await db.run("CREATE TABLE IF NOT EXISTS authorized (key VARCHAR(8) UNIQUE PRIMARY KEY, owner VARCHAR(511), domain VARCHAR(255));");
+        await db.run("CREATE TABLE IF NOT EXISTS features (appid INT, name VARCHAR(255), icon VARCHAR(255), url VARCHAR(255));");
     }
 
     static async registerAuth(key, owner, domain) {
@@ -36,6 +37,19 @@ class DB {
         return await Promise.all([
             db.get("SELECT * FROM authorized"),
         ]);
+    }
+
+    static async getFeatures(appid) {
+        const db = await dbPromise;
+        let [data] = await Promise.all([
+            db.all("SELECT * FROM features WHERE appid = (?);", appid),
+        ]);
+        return data;
+    }
+
+    static async saveFeature(appid, name, icon, url) {
+        const db = await dbPromise;
+        return db.run(`INSERT INTO features (appid, name, icon, url) VALUES (?, ?, ?, ?)`, appid, name, icon, url);
     }
 }
 

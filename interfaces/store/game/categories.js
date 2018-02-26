@@ -27,33 +27,43 @@ module.exports = function(config, app) {
             if (!exists) {
                 res.send("Invalid [auth] key, not found in registry!");
             } else {
-                const options = {
-                    uri: ("http://store.steampowered.com/app/" + appid),
-                    transform: function (body) {
-                        console.log(body);
-                        return cheerio.load(body);
-                    }
-                };
 
-                rp(options).then($ => {
-                    console.log($);
-                    let categories = [];
-                    let features = $("#category_block").find(".game_area_details_specs");
-                    features.each(function (i, elem) {
-                        let categoryName = $(this).find(".name").text();
-                        let categoryicon = $(this).find(".icon a img").attr("src");
-                        let categoryUrl = $(this).find(".name").attr("href");
-                        let categoryJson = {
-                            name: categoryName,
-                            icon: categoryicon,
-                            url: categoryUrl
+                core.cache.features.getFeatures(appid).then(features => {
+                    let useCache = true;
+                    if (features !== undefined && useCache) {
+                        console.log("Getting features from cache");
+                        res.send(features);
+                    } else {
+                        console.log("Fetch features");
+
+                        const options = {
+                            uri: ("http://store.steampowered.com/app/" + appid),
+                            transform: function (body) {
+                                return cheerio.load(body);
+                            }
                         };
-                        categories.push(categoryJson);
-                    });
-                    categories.push("success");
-                    res.send(JSON.stringify(categories));
-                }).catch(error => {
-                    res.send("Server error [Steam | Store | Game | Categories]");
+
+                        rp(options).then($ => {
+                            let categories = [];
+                            let features = $("#category_block").find(".game_area_details_specs");
+                            features.each(function (i, elem) {
+                                let categoryName = $(this).find(".name").text();
+                                let categoryIcon = $(this).find(".icon a img").attr("src");
+                                let categoryUrl = $(this).find(".name").attr("href");
+                                let categoryJson = {
+                                    name: categoryName,
+                                    icon: categoryIcon,
+                                    url: categoryUrl
+                                };
+                                core.cache.features.cacheFeature(appid, categoryName, categoryIcon, categoryUrl);
+                                categories.push(categoryJson);
+                            });
+                            categories.push("success");
+                            res.send(JSON.stringify(categories));
+                        }).catch(error => {
+                            res.send("Server error [Steam | Store | Game | Categories]");
+                        });
+                    }
                 });
             }
         });

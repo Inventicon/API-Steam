@@ -7,7 +7,9 @@ module.exports = function(config, app) {
         return;
     }
 
-    app.get(config.address + "/store/game/categories", (req, res) => {
+    // GameFeatures (Scraper)
+    console.log("Loading Endpoint: Game Features - [Store, Game, Categories]");
+    app.get(config.address + "/store/game/features", (req, res) => {
         let query = req.query;
 
         let appid = query.appid;
@@ -28,13 +30,16 @@ module.exports = function(config, app) {
                 const options = {
                     uri: ("http://store.steampowered.com/app/" + appid),
                     transform: function (body) {
+                        console.log(body);
                         return cheerio.load(body);
                     }
                 };
 
                 rp(options).then($ => {
+                    console.log($);
                     let categories = [];
-                    $("#category_block .game_area_details_specs").each(function (i, elem) {
+                    let features = $("#category_block").find(".game_area_details_specs");
+                    features.each(function (i, elem) {
                         let categoryName = $(this).find(".name").text();
                         let categoryicon = $(this).find(".icon a img").attr("src");
                         let categoryUrl = $(this).find(".name").attr("href");
@@ -45,6 +50,7 @@ module.exports = function(config, app) {
                         };
                         categories.push(categoryJson);
                     });
+                    categories.push("success");
                     res.send(JSON.stringify(categories));
                 }).catch(error => {
                     res.send("Server error [Steam | Store | Game | Categories]");

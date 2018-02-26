@@ -11,9 +11,9 @@ async function authExists(key) {
 }
 
 async function authCreate(owner, domain) {
-    let key = generateKey(32);
+    let key = generateKey(8);
     while (await authExists(key)) {
-        key = generateKey(32);
+        key = generateKey(8);
     }
 
     let success = await db.registerAuth(key, owner, domain);

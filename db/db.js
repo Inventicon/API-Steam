@@ -11,7 +11,7 @@ class DB {
 
     static async _createTables() {
         const db = await dbPromise;
-        await db.run("CREATE TABLE IF NOT EXISTS authorized (key VARCHAR(32) UNIQUE PRIMARY KEY, owner VARCHAR(511), domain VARCHAR(255));");
+        await db.run("CREATE TABLE IF NOT EXISTS authorized (key VARCHAR(8) UNIQUE PRIMARY KEY, owner VARCHAR(511), domain VARCHAR(255));");
     }
 
     static async registerAuth(key, owner, domain) {

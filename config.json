@@ -2,5 +2,6 @@
   "address": "/steam",
   "port": 3000,
   "key": "CCC825F284349731EA9246342BC60DFC",
-  "format": "json"
+  "format": "json",
+  "key-size": 8
 }

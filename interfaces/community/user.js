@@ -7,6 +7,7 @@ module.exports = function GetPlayerSummaries(config, app) {
     }
 
     // GetPlayerSummaries
+    console.log("Endpoint: User(s) Summary - [Community, User]");
     app.get(config.address + "/community/user", function (req, res) {
         let query = req.query;
 
@@ -48,6 +49,7 @@ module.exports = function GetPlayerSummaries(config, app) {
     });
 
     // GetOwnedGames
+    console.log("Endpoint: Users Games - [Community, User, Games]");
     app.get(config.address + "/community/user/games", function (req, res) {
         let query = req.query;
 
